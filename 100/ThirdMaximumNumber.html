@@ -24,20 +24,20 @@
                 return null;
                 break;
             case 1:
-                return nums[0];
+                return keys[0]-0;
                 break;
             case 2:
-                return Math.max(nums[0],nums[1]);
+                return Math.max(keys[0],keys[1]);
                 break;
             default:{
                 var heapTree=$jsSTL.$heapTree([keys[0],keys[1],keys[2]],false);
-                console.log(heapTree);
-                for(var i=2; i<keys.length;i++){
-                    var heapTop = heapTree.$$getHeapNode(0);
+                for(var i=3; i<keys.length;i++){
+                    var heapTop = heapTree.$$getHeapNode(0)-0;
                     if(keys[i] > heapTop){
                         heapTree.$$setNodeValue(0,keys[i]);
                         heapTree.$$adjustTreeUnder(0);
                     }
+                    heapTree.$$consoleTree();
                 }
                 console.log(heapTree.$$getHeapNode(0),heapTree.$$getHeapNode(1),heapTree.$$getHeapNode(2));
                 return Math.min(heapTree.$$getHeapNode(0),heapTree.$$getHeapNode(1),heapTree.$$getHeapNode(2));
@@ -46,7 +46,7 @@
 
     };
 
-    console.log(thirdMax([2,2,3,1]));
+    console.log(thirdMax([3,2,3,1,2,4,5,5,6,7,7,8,2,3,1,1,1,10,11,5,6,2,4,7,8,5,6]));
 
 
 </script>

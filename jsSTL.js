@@ -23,10 +23,10 @@
             var tempRoot = $$index;
 
 
-            if( rightChild < $$heapArray.length && (($$heapDirection && $$heapArray[rightChild] > $$heapArray[tempRoot])||(!$$heapDirection && $$heapArray[rightChild] < $$heapArray[tempRoot]))){
+            if( rightChild < $$heapArray.length && (($$heapDirection && Number($$heapArray[rightChild]) > Number($$heapArray[tempRoot])) ||(!$$heapDirection && Number($$heapArray[rightChild]) < Number($$heapArray[tempRoot])))){
                 tempRoot = rightChild;
             }
-            if( leftChild < $$heapArray.length && (($$heapDirection && $$heapArray[leftChild] > $$heapArray[tempRoot])||(!$$heapDirection && $$heapArray[leftChild] < $$heapArray[tempRoot]))){
+            if( leftChild < $$heapArray.length && (($$heapDirection && Number($$heapArray[leftChild]) > Number($$heapArray[tempRoot]))||(!$$heapDirection && Number($$heapArray[leftChild]) < Number($$heapArray[tempRoot])))){
                 tempRoot = leftChild;
             }
             if(tempRoot !== $$index){

@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+</body>
+<script>
+    /**
+     * @param {string} J
+     * @param {string} S
+     * @return {number}
+     */
+    var numJewelsInStones = function(J, S) {
+        var result=0;
+        var resultObj = {};
+        var resultObj2 = {};
+        var JArray=J.split("");
+        var SArray=S.split("");
+        SArray.forEach(function(v){
+            if(v in resultObj){
+                resultObj[v]=resultObj[v]+1;
+            }
+            else{
+                resultObj[v]=1;
+            }
+        });
+        JArray.forEach(function(v){
+            if(v in resultObj2){
+                resultObj2[v]=resultObj2[v]+1;
+            }
+            else{
+                resultObj2[v]=1;
+            }
+        });
+        for(var key in resultObj){
+            if(key in resultObj2){
+                result=result+resultObj[key];
+            }
+        }
+        return result;
+    };
+
+
+    var J="z";
+    var S="ZZZz";
+    console.log(numJewelsInStones(J,S));
+</script>
+</html>

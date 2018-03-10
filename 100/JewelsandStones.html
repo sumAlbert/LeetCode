@@ -6,45 +6,48 @@
 </head>
 <body>
 </body>
+<script src="../jsSTL.js"></script>
 <script>
     /**
-     * @param {string} J
-     * @param {string} S
+     * @param {number[]} nums
      * @return {number}
      */
-    var numJewelsInStones = function(J, S) {
-        var result=0;
-        var resultObj = {};
-        var resultObj2 = {};
-        var JArray=J.split("");
-        var SArray=S.split("");
-        SArray.forEach(function(v){
-            if(v in resultObj){
-                resultObj[v]=resultObj[v]+1;
-            }
-            else{
-                resultObj[v]=1;
-            }
+    var thirdMax = function(nums) {
+        var delDuplicateObj = {};
+
+        nums.forEach(function(v){
+            delDuplicateObj[v] = true;
         });
-        JArray.forEach(function(v){
-            if(v in resultObj2){
-                resultObj2[v]=resultObj2[v]+1;
-            }
-            else{
-                resultObj2[v]=1;
-            }
-        });
-        for(var key in resultObj){
-            if(key in resultObj2){
-                result=result+resultObj[key];
+        var keys = Object.keys(delDuplicateObj);
+        switch (keys.length){
+            case 0:
+                return null;
+                break;
+            case 1:
+                return nums[0];
+                break;
+            case 2:
+                return Math.max(nums[0],nums[1]);
+                break;
+            default:{
+                var heapTree=$jsSTL.$heapTree([keys[0],keys[1],keys[2]],false);
+                console.log(heapTree);
+                for(var i=2; i<keys.length;i++){
+                    var heapTop = heapTree.$$getHeapNode(0);
+                    if(keys[i] > heapTop){
+                        heapTree.$$setNodeValue(0,keys[i]);
+                        heapTree.$$adjustTreeUnder(0);
+                    }
+                }
+                console.log(heapTree.$$getHeapNode(0),heapTree.$$getHeapNode(1),heapTree.$$getHeapNode(2));
+                return Math.min(heapTree.$$getHeapNode(0),heapTree.$$getHeapNode(1),heapTree.$$getHeapNode(2));
             }
         }
-        return result;
+
     };
 
+    console.log(thirdMax([2,2,3,1]));
 
-    var J="z";
-    var S="ZZZz";
-    console.log(numJewelsInStones(J,S));
+
 </script>
 </html>

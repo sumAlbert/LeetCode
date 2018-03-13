@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+    var printArrRecusively = function(nums,result){
+        var level = result.length;
+        if(level === nums){
+            var totalResult = result.join("").replace(/0*/,"");
+            if(totalResult.length === 0){
+                console.log(0);
+            }
+            else
+                console.log(totalResult);
+        }
+        else{
+            for(var i = 0; i <= 9; i++){
+                result.push(i);
+                printArrRecusively(nums,result);
+                result.pop();
+            }
+        }
+    };
+
+
+    var printArr = function(nums){
+      if(nums === 0){
+          return null;
+      }
+      else{
+          var result = [];
+          printArrRecusively(nums,result);
+      }
+    };
+
+
+    var arr = 2;
+    printArr(arr);
+</script>
+</html>

@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    var toPostOrder1 = function(str){
+        var startDelimiter = {"{":1,"[":2,"\"":3};//开始定界符
+        var stopDelimiter = {"}":1,"]":2,"\"":3};//结束定界符
+        var operatorsOrder = {",":1,":":2};//运算符优先级
+
+        var operatorsStack = []; //运算符栈
+        var outputQueue = []; //输出数组
+
+        var strArray = str.split("");
+        for(var i=0;i<strArray.length;i++){
+            var currentEle = strArray[i];//当前元素
+            var stackTop = operatorsStack[operatorsStack.length-1];//栈顶元素
+            var stackTop2 = operatorsStack[operatorsStack.length-2];//栈顶第二个元素
+
+            if(stopDelimiter[currentEle]){//如果当前元素是结束定界符
+                if(stackTop && startDelimiter[stackTop] && startDelimiter[stackTop] === stopDelimiter[currentEle]){//如果1.栈顶元素存在；2.栈顶元素是开始定界符；3.栈顶元素是结束定界符对应的开始定界符（开始-结束定界符之间无运算符,可以认为实双引号）
+                    outputQueue.push(""+stackTop+currentEle);//在输出队列中输出定界符的标志
+                    operatorsStack.pop();//从运算符栈中输出，开始定界符
+                    continue;
+                }
+
+                if(stopDelimiter[currentEle]!==3){//如果不是双引号
+                    while(operatorsStack.length>0 && startDelimiter[stackTop] !== stopDelimiter[currentEle]){
+                        outputQueue.push(""+stackTop);//在输出队列中输出未输出的运算符
+                        operatorsStack.pop();//从运算符栈中输出未输出的运算符
+                        stackTop = operatorsStack[operatorsStack.length-1];
+                    }
+                    outputQueue.push(""+stackTop+currentEle);//在输出队列中输出定界符的标志
+                    operatorsStack.pop();//从运算符栈中输出，开始定界符
+                    continue;
+                }
+            }
+            if(startDelimiter[currentEle]){//如果当前元素是开始定界符
+                operatorsStack.push(currentEle);
+                continue;
+            }
+            if(operatorsOrder[currentEle]){//如果当前元素是运算符
+                var currentPriority = operatorsOrder[currentEle]||0;//当前元素优先级
+                var stackTopPriority = operatorsOrder[stackTop]||0;//栈顶元素优先级
+
+                if(currentPriority-stackTopPriority>0){//如果当前元素优先级大于栈顶元素优先级，则判定当前元素的上一个输出元素应该与当前元素的下一个元素结合，按照后序遍历，应该把当前元素的下一个元素优先输出。故：应该先保存当前元素
+                    operatorsStack.push(currentEle);
+                }
+                else{//如果当前元素优先级小于或等于栈顶元素优先级，则判定当前元素的上一个输出元素应该与当前元素的上上个输出元素结合，按照后序遍历。故：现在应该输出栈顶元素，并把当前元素入栈
+                    outputQueue.push(stackTop);
+                    operatorsStack.pop();
+                    operatorsStack.push(currentEle);
+                }
+                continue;
+            }
+
+            if(currentEle.match(/^[a-zA-Z0-9]$/)){//如果当前元素是a-zA-Z0-9，则当成普通元素直接输出
+                outputQueue.push(currentEle);
+            }
+        }
+        console.log(outputQueue)
+    };
+
+
+
+
+
+    var errorMessage = function(msg){
+      console.log(msg);
+    };
+
+    var testObj = {};
+    testObj.t2 = {"m1":"m2"};
+    testObj.t3 = "m3";
+    var str = JSON.stringify(testObj);
+
+
+    toPostOrder1(str);
+
+
+
+    //                    valueGen = result.slice(valueStart);
+    //                    valueGen = valueGen.join("");
+    //                    result.length = valueStart;
+    //                    result.push(valueGen);
+</script>
+</html>

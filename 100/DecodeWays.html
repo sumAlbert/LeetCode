@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+</body>
+<script src="../jsSTL.js"></script>
+<script>
+    /**
+     * @param {string} s
+     * @return {number}
+     */
+    var numDecodings = function(s) {
+        var dp = [];
+        var strArray = s.split("");
+        if(strArray.length===0){
+            return 0;
+        }
+        strArray.forEach(function (v,k,a) {
+            var tempResult = 0;
+            if(k === 0){
+                if(v.match(/^[1-9]$/)){
+                    tempResult ++;
+                }
+            }
+            else if(k === 1){
+                if(v.match(/^[1-9]$/)){
+                    tempResult = dp[k-1];
+                }
+                if((a[0]+a[1]+"").match(/^(1[0-9])|(2[0-6])$/)){
+                    tempResult ++;
+                }
+            }
+            else{
+                if(v.match(/^[1-9]$/)){
+                    tempResult = dp[k-1];
+                }
+                console.log(tempResult);
+                if((a[k-1]+v+"").match(/^(1[0-9])|(2[0-6])$/)){
+                    tempResult += dp[k-2];
+                }
+                console.log((v+a[k - 1]+""));
+            }
+            dp[k] = tempResult;
+        });
+        console.log(dp);
+        return (dp[dp.length - 1]);
+    };
+
+    numDecodings("101");
+
+
+
+</script>
+</html>

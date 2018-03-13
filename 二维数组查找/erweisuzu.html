@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    function TreeNode(x) {
+        this.val = x;
+        this.left = null;
+        this.right = null;
+    }
+
+    function recursivelyRebuilt(pre,vin,dirt,parent){
+        if(pre.length>0){
+
+        }
+        else{
+            return null;
+        }
+    }
+
+    function reConstructBinaryTree(pre,vin){
+        var header = new TreeNode();
+        if(pre.length>0){
+            header.val = pre[0];
+            recursivelyRebuilt(pre,vin,"l",header);
+
+        }
+        else{
+            return null;
+        }
+    }
+
+
+
+    console.log(reConstructBinaryTree([1,2,4,7,3,5,6,8],[4,7,2,1,5,3,8,6]));
+
+</script>
+</html>

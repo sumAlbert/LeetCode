@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <style>
+        .contain{
+            position: absolute;
+            top: 0;
+            left: 0;
+            background: red;
+            font-size: 2vw;
+            height: 5em;
+            width: 5em;
+            cursor: move;
+        }
+    </style>
+</head>
+<body>
+    <div class="contain"></div>
+</body>
+<script>
+    var flag = false;
+    var box = document.getElementsByClassName("contain")[0];
+
+    var startX,startY;
+    var mouseStartX,mouseStartY;
+
+    box.onmousedown = function(event){
+        flag = true;
+        startX = parseInt(getComputedStyle(box,null).left,10);
+        startY = parseInt(getComputedStyle(box,null).top,10);
+        mouseStartX = event.clientX;
+        mouseStartY = event.clientY;
+    };
+
+    box.onmousemove = function(event){
+        if(flag){
+            var mouseStopX = event.clientX;
+            var mouseStopY = event.clientY;
+            box.style.left = (mouseStopX - mouseStartX + startX + "px");
+            box.style.top = (mouseStopY - mouseStartY + startY + "px");
+        }
+    };
+
+    box.onmouseup = function(){
+        flag = false;
+    }
+
+
+
+
+</script>
+</html>

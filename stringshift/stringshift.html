@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+
+</body>
+<script>
+
+    (function(){
+
+        var line;
+        while(line = readLine()){
+            var lineArray = line.split("");
+            var startPoint = 0;
+            var stopPoint = 1;
+            var postFixLength = [0];
+            var minItemLength = 0;
+
+            if(lineArray.length===0){
+                print(0);
+                continue;
+            }
+            if(lineArray.length ===1){
+                print(1);
+                continue;
+            }
+
+
+            for(stopPoint = 1;stopPoint<lineArray.length;stopPoint++){
+                if(lineArray[stopPoint]===lineArray[startPoint]){
+                    startPoint++;
+                    postFixLength[stopPoint] = postFixLength[stopPoint-1]+1;
+                    if(postFixLength[stopPoint-1] === 0){
+                        minItemLength = stopPoint;
+                    }
+                }
+                else{
+                    startPoint = 0;
+                    postFixLength[stopPoint] = 0;
+                }
+            }
+
+
+            var itemNum = Math.min(postFixLength[postFixLength.length-1],minItemLength);
+            if(itemNum === 0){
+                print(0);
+                continue;
+            }
+
+            var loopNum = lineArray.length /itemNum;
+            if(loopNum - Math.floor(loopNum) !== 0){
+                print(0);
+                continue;
+            }
+            var result = true;
+            for(var i = 0;i<lineArray.length;i++){
+                if(lineArray[i%itemNum]!==lineArray[i]){
+                    result = false;
+                    break;
+                }
+            }
+
+
+
+            if(result){
+                print(loopNum);
+            }
+            else{
+                print(0);
+            }
+        }
+
+        function readLine(){
+            var line = "";
+            var next = read_line();
+            while(next){
+                line += next;
+                next = read_line();
+            }
+            line += next;
+            return line;
+        }
+    })()
+</script>
+</html>

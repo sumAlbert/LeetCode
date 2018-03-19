@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+</body>
+<script>
+    (function (window) {
+        var errorMsg = function(msg){
+            console.log(msg);
+        };
+        window.quickSort = function () {
+            var waitArray = arguments[0];
+            if(!waitArray){
+                errorMsg("argument is null");
+                return null;
+            }
+            if(waitArray.length===0){
+                return waitArray;
+            }
+
+            var leftArray= [];
+            var rightArray = [];
+            var pivot = waitArray[0];
+            waitArray.forEach(function (v,k) {
+                if(k!==0){
+                    if(v>pivot){
+                        leftArray.push(v);
+                    }
+                    else{
+                        rightArray.push(v);
+                    }
+                }
+            });
+
+            //recursively and concat
+            if(leftArray.length!==0){
+                leftArray = arguments.callee(leftArray);
+            }
+            if(rightArray.length!==0){
+                rightArray = arguments.callee(rightArray);
+            }
+            var result = leftArray.concat([pivot]).concat(rightArray);
+            return result;
+        };
+    })(window);
+
+    var testCase = [[1,2,3,4,5,6,7,8,9,10],["1","2","3","4","5","6","7","8","9","10"],[],[9,8,7,6,5,4,3,2,1,0]];
+    console.log(quickSort(testCase[3]));
+</script>
+</html>

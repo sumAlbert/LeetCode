@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    var adjustHeap = function(arr,i){
+        var lastNotLeaf = Math.floor((arr.length - 1)/2);
+        if(i>lastNotLeaf&&i<0)
+            return null;
+        var leftIndex = 2*i+1;
+        var rightIndex = 2*i+2;
+        var leftValue = arr[leftIndex]||-Infinity;
+        var rightValue = arr[rightIndex]||-Infinity;
+        var temp;
+        if(leftValue>=rightValue){
+            if(leftValue>arr[i]){
+                temp = leftValue;
+                arr[leftIndex] = arr[i];
+                arr[i] = temp;
+                adjustHeap(arr,leftIndex);
+            }
+        }
+        else{
+            if(rightValue>arr[i]){
+                temp = rightValue;
+                arr[rightIndex] = arr[i];
+                arr[i] = temp;
+                adjustHeap(arr,rightIndex);
+            }
+        }
+    };
+
+    var buildHeap = function(arr){
+        var lastNotLeaf = Math.floor((arr.length - 1)/2);
+        while(lastNotLeaf>=0){
+            adjustHeap(arr,lastNotLeaf);
+            lastNotLeaf--;
+        }
+    };
+
+    var heapSort = function(arr){
+        var result = [];
+        buildHeap(arr);
+        console.log(arr.toString());
+        var topEle = arr.shift();
+        while(topEle){
+            result.push(topEle);
+            adjustHeap(arr,0);
+            topEle = arr.shift();
+        }
+        console.log(result);
+    };
+    heapSort([1,2,3,4,5,6,7,8,9,10]);
+
+</script>
+</html>

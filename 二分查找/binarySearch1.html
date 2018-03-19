@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+    var arr = [1,2,3,4,5,6,7,8,9,10];
+
+    function binarySearch1(arr,start,end,target){
+        var middle = Math.floor((start + end)/2);
+        var result = -1;
+        if(arr[middle] - target ===0){
+            result = middle;
+        }
+        else if(arr[middle] - target >0&&middle!==0){
+            result = arguments.callee(arr,0,middle-1,target);
+        }
+        else if(arr[middle] - target <0&&middle!==arr.length-1){
+            result = arguments.callee(arr,middle+1,arr.length-1,target);
+        }
+        return result;
+    }
+    console.log(binarySearch1(arr,0,arr.length-1,7));
+</script>
+</html>

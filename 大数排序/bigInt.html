@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+</body>
+<script>
+
+
+    var errorMessage = function(msg){
+        console.log(msg);
+    };
+
+    var bigInt = function(a,b){
+        if(!(/^[0-9]*$/).test(a)){
+            errorMessage("format error: A - " + a);
+            return null;
+        }
+        if(!(/^[0-9]*$/).test(b)){
+            errorMessage("format error: B - " + b);
+            return null;
+        }
+
+        var aArray = String(a).split("");
+        var bArray = String(b).split("");
+        var result = [];
+
+        var i=0;
+        var preNum = Number(aArray[aArray.length - 1 - i]||0);
+        var nextNum = Number(bArray[bArray.length - 1 - i]||0);
+        var evl = 0;
+        while(preNum!==0||nextNum!==0||evl!==0){
+            var resultItem = (preNum+nextNum+evl)%10;
+            result.unshift(resultItem);
+            i++;
+            evl = Math.floor((preNum+nextNum+evl)/10);
+            preNum = Number(aArray[aArray.length - 1 - i]||0);
+            nextNum = Number(bArray[bArray.length - 1 - i]||0);
+        }
+        if(result.length===0){
+            result.unshift(0);
+        }
+        console.log(result.join(""));
+    };
+
+
+    testCase = [[0,0],[1,],[,2],["9999999999999999999999","1"]];
+    bigInt(testCase[3][0],testCase[3][1]);
+
+</script>
+</html>
